@@ -1,5 +1,6 @@
-import pickle
 import sys
+
+sys.path.append('/Users/diogomatoschaves/PycharmProjects/disaster-response-analysis')
 
 import joblib
 import nltk
@@ -20,26 +21,19 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.metrics import (
-    confusion_matrix,
-    classification_report,
     accuracy_score,
-    balanced_accuracy_score,
     precision_recall_fscore_support,
 )
 from sklearn.model_selection import GridSearchCV
-from sklearn.ensemble import AdaBoostClassifier
-from sklearn.svm import SVC
-from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
-from models.verb_counter import VerbCounter
-from utils.defaults import TABLE_NAME
+from disaster_response_pipeline.models.verb_counter import VerbCounter
+from disaster_response_pipeline.utils.defaults import TABLE_NAME
 
 classifier_params_defaults = {
     "RandomForestClassifier": {"n_estimators": 100, "max_depth": 50},

@@ -1,7 +1,7 @@
 import pytest
 
 
-from models.train_classifier import tokenize, build_model
+from disaster_response_pipeline.models import tokenize, build_model
 
 
 class TestTrainClassifier:

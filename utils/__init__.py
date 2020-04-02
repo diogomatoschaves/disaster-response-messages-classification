@@ -1,1 +1,1 @@
-from utils.defaults import *
+from disaster_response_pipeline.utils.defaults import *

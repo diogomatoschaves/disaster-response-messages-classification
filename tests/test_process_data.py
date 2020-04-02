@@ -2,7 +2,7 @@ import pytest
 
 import pandas as pd
 
-from data.process_data import clean_data
+from disaster_response_pipeline.data import clean_data
 
 
 class TestProcessData:

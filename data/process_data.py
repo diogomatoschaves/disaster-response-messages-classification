@@ -4,7 +4,7 @@ sys.path.append('/Users/diogomatoschaves/PycharmProjects/disaster-response-analy
 
 import pandas as pd
 from sqlalchemy import create_engine
-from utils import TABLE_NAME
+from disaster_response_pipeline.utils import TABLE_NAME
 
 
 def load_data(messages_filepath, categories_filepath):
