@@ -1,6 +1,9 @@
 import sys
+import os
 
-sys.path.append('/Users/diogomatoschaves/PycharmProjects/disaster-response-analysis')
+directory_path = '/'.join(os.path.dirname(os.path.realpath(__file__)).split('/')[:-1])
+
+sys.path.append(directory_path)
 
 import joblib
 import nltk
@@ -32,8 +35,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
-from disaster_response_pipeline.models.verb_counter import VerbCounter
-from disaster_response_pipeline.utils.defaults import TABLE_NAME
+from models.verb_counter import VerbCounter
+from utils.defaults import TABLE_NAME
 
 classifier_params_defaults = {
     "RandomForestClassifier": {"n_estimators": 100, "max_depth": 50},

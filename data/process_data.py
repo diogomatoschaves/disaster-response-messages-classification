@@ -1,10 +1,13 @@
 import sys
+import os
 
-sys.path.append('/Users/diogomatoschaves/PycharmProjects/disaster-response-analysis')
+directory_path = '/'.join(os.path.dirname(os.path.realpath(__file__)).split('/')[:-1])
+
+sys.path.append(directory_path)
 
 import pandas as pd
 from sqlalchemy import create_engine
-from disaster_response_pipeline.utils import TABLE_NAME
+from utils import TABLE_NAME
 
 
 def load_data(messages_filepath, categories_filepath):
