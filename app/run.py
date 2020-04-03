@@ -1,6 +1,9 @@
 import sys
+import os
 
-sys.path.append('/Users/diogomatoschaves/PycharmProjects/disaster-response-analysis')
+directory_path = '/'.join(os.path.dirname(os.path.realpath(__file__)).split('/')[:-1])
+
+sys.path.append(directory_path)
 
 import json
 import plotly
@@ -49,12 +52,14 @@ model = joblib.load(f"../{MODEL_PATH}")
 def index():
 
     # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby("genre").count()["message"]
     genre_names = list(genre_counts.index)
 
+    count = df.iloc[:, 4:].sum(axis=0).to_frame().reset_index()
+    count.columns = ['category', 'count']
+    count = count.sort_values('count', ascending=False)
+
     # create visuals
-    # TODO: Below is an example - modify to create your own visuals
     graphs = [
         {
             "data": [Bar(x=genre_names, y=genre_counts)],
@@ -62,6 +67,14 @@ def index():
                 "title": "Distribution of Message Genres",
                 "yaxis": {"title": "Count"},
                 "xaxis": {"title": "Genre"},
+            },
+        },
+        {
+            "data": [Bar(x=count['category'], y=count['count'])],
+            "layout": {
+                "title": "Distribution of positive occurrences for each category",
+                "yaxis": {"title": "Count"},
+                "xaxis": {"title": "Category"},
             },
         }
     ]
