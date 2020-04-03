@@ -63,6 +63,12 @@ tokenize_without_numbers.__name__ = "without_numbers"
 
 
 def download_nltk_packages(packages=None):
+    """
+    Downloads the required nltk packages
+
+    :param packages: optional array with packages to download
+    :return: None
+    """
     if not packages:
         packages = ["punkt", "stopwords", "wordnet", "averaged_perceptron_tagger"]
 
@@ -70,6 +76,12 @@ def download_nltk_packages(packages=None):
 
 
 def load_data(database_filepath):
+    """
+    Loads the data from the database, required to run the model
+
+    :param database_filepath: filepath to the database file
+    :return: features, targets and target columns
+    """
     engine = create_engine(f"sqlite:///{database_filepath}")
     df = pd.read_sql_table(TABLE_NAME, engine)
     X = df["message"]
@@ -79,6 +91,13 @@ def load_data(database_filepath):
 
 
 def tokenize(text, include_numbers=True):
+    """
+    Processes the text to make it ready to be vectorized
+
+    :param text: text to be processed
+    :param include_numbers: flag to signal if numbers should be included or not
+    :return: tokenized words
+    """
 
     url_pattern = r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+"
 
@@ -106,6 +125,15 @@ def tokenize(text, include_numbers=True):
 def build_model(
     clf_name=None, grid_search=False, classifier_params=None, grid_search_params=None
 ):
+    """
+    Builds the pipeline required to fit the features into the model
+
+    :param clf_name: classifier name. Default will be KNearestNeighbors
+    :param grid_search: If grid search should be performed
+    :param classifier_params: extra params to be passed to the classifier
+    :param grid_search_params: extra params to be passed to the grid search
+    :return: the built model
+    """
 
     if not classifier_params:
         classifier_params = {}
@@ -157,6 +185,17 @@ def build_model(
 
 
 def evaluate_model(model, X_test, y_test, category_names, plot=True):
+    """
+    Evaluates the model and outputs a figure with the respective precision,
+    recall, f score and accuracies for each of the model's output categories
+
+    :param model: the fitted model
+    :param X_test: the test features
+    :param y_test: the test target values
+    :param category_names: array of the category names
+    :param plot: if a plot with the results should be shown
+    :return: a data frame with the evaluation results
+    """
 
     y_pred = model.predict(X_test)
 
@@ -211,6 +250,12 @@ def evaluate_model(model, X_test, y_test, category_names, plot=True):
 
 
 def plot_results(results):
+    """
+    Plots the results
+
+    :param results: a data frame with the evaluation results
+    :return: None
+    """
 
     plt.figure(figsize=(13, 12))
 
@@ -236,11 +281,23 @@ def plot_results(results):
 
 
 def save_model(model, model_filepath):
+    """
+    Saves the model as a pickle file
+
+    :param model: the ML model to be saved
+    :param model_filepath: path pointing to where the file should be saved
+    :return: None
+    """
 
     joblib.dump(model, model_filepath)
 
 
 def main():
+    """
+    Main thread where the pipeline occurs in sequence
+
+    :return: None
+    """
 
     download_nltk_packages()
 
